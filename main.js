@@ -71,7 +71,8 @@ function addStar() {
 
 Array(200).fill().forEach(addStar);
 
-
+const spaceTexture = new THREE.TextureLoader().load('space.jpg');
+scene.background = spaceTexture;
 
 // Below is a Function that creates an infinite loop that calls the render method automatically, updating the ui
 // This is our GAME LOOP
