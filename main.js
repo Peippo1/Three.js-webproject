@@ -74,6 +74,22 @@ Array(200).fill().forEach(addStar);
 const spaceTexture = new THREE.TextureLoader().load('space.jpg');
 scene.background = spaceTexture;
 
+
+// Avatar
+
+const davidTexture = new THREE.TextureLoader().load('david.jpg');
+
+const david = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: davidTexture }));
+
+scene.add(david);
+
+
+
+
+
+
+
+
 // Below is a Function that creates an infinite loop that calls the render method automatically, updating the ui
 // This is our GAME LOOP
 function animate() {
