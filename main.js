@@ -1,7 +1,9 @@
 import './style.css'
 
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+// Setup
 
 const scene = new THREE.Scene();
 
@@ -18,9 +20,12 @@ renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 // camera position moved along z axis for better view when adding shapes.
 camera.position.setZ(30);
+camera.position.setX(-3);
 
 // render == DRAW
 renderer.render( scene, camera );
+
+// TORUS
 
 // Creating objects and vectors to define the shape
 // GEOMETRY - the {x,y,z} points that make up a shape 
@@ -33,7 +38,9 @@ const torus = new THREE.Mesh( geometry, material);
 
 scene.add(torus);
 
-// using a pointLight and white hexidecimal literal to light object
+// LIGHTS
+
+// Using a pointLight and white hexidecimal literal to light object
 const pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.set(5,5,5);
 
@@ -47,6 +54,23 @@ scene.add(pointLight, ambientLight);
 // scene.add(lightHelper, gridHelper)
 
 // const controls = new OrbitControls(camera, renderer.domElement);
+
+function addStar() {
+  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const star = new THREE.Mesh(geometry, material);
+
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x, y, z);
+  scene.add(star);
+}
+
+Array(200).fill().forEach(addStar);
+
+
 
 // Below is a Function that creates an infinite loop that calls the render method automatically, updating the ui
 // This is our GAME LOOP
