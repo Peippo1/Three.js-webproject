@@ -88,6 +88,7 @@ scene.add(david);
 const moonTexture = new THREE.TextureLoader().load('moon.jpg');
 const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
+// using normal map image to enhance realisim
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
@@ -105,12 +106,28 @@ moon.position.setX(-10);
 david.position.z = -5;
 david.position.x = 2;
 
+// Scroll Animation
+
+function moveCamera() {
+  const t = document.body.getBoundingClientRect().top;
+  moon.rotation.x += 0.05;
+  moon.rotation.y += 0.075;
+  moon.rotation.z += 0.05;
+
+  david.rotation.y += 0.01;
+  david.rotation.z += 0.01;
+
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0002;
+  camera.rotation.y = t * -0.0002;
+}
+
+document.body.onscroll = moveCamera;
+moveCamera();
 
 
 
-
-
-
+	// Animation Loop
 
 // Below is a Function that creates an infinite loop that calls the render method automatically, updating the ui
 // This is our GAME LOOP
@@ -120,6 +137,9 @@ function animate() {
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
 
+  moon.rotation.x += 0.005;
+
+    // controls.update();
 
   renderer.render( scene, camera );
 }
